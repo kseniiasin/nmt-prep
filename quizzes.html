@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тести - Підготовка до НМТ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2c3e50;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #34495e;
+            --success: #2ecc71;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: var(--dark);
+            background-color: #f5f7fa;
+        }
+        
+        /* Навігація */
+        .navbar {
+            background-color: var(--secondary);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            background-color: var(--primary);
+        }
+        
+        /* Основний контент */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 3rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+        
+        /* Стилі для тестів */
+        .quiz {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+        }
+        
+        .quiz-question {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+            color: var(--secondary);
+        }
+        
+        .quiz-options {
+            list-style: none;
+        }
+        
+        .quiz-option {
+            padding: 1rem;
+            margin-bottom: 0.8rem;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+        }
+        
+        .quiz-option:hover {
+            background-color: #e9f5fe;
+            border-left-color: var(--primary);
+        }
+        
+        .quiz-option.selected {
+            background-color: #e3f2fd;
+            border-left-color: var(--primary);
+        }
+        
+        .quiz-option.correct {
+            background-color: #e8f5e9;
+            border-left-color: var(--success);
+        }
+        
+        .quiz-option.incorrect {
+            background-color: #ffebee;
+            border-left-color: var(--accent);
+        }
+        
+        .quiz-feedback {
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .feedback-correct {
+            background-color: #e8f5e9;
+            color: var(--success);
+            border-left: 4px solid var(--success);
+        }
+        
+        .feedback-incorrect {
+            background-color: #ffebee;
+            color: var(--accent);
+            border-left: 4px solid var(--accent);
+        }
+        
+        .quiz-submit {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.8rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            margin-top: 1rem;
+            transition: all 0.3s;
+            display: block;
+            margin: 2rem auto 0;
+        }
+        
+        .quiz-submit:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .quiz-result {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            display: none;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Футер */
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links li {
+            margin: 0 1rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .social-icons {
+            margin-top: 1rem;
+        }
+        
+        .social-icons a {
+            color: white;
+            margin: 0 0.5rem;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            color: var(--primary);
+        }
+        
+        /* Адаптивність */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+            }
+            
+            .nav-links {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-links li {
+                margin: 0.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .quiz {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Навігація -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-square-root-alt"></i> НМТ Математика
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Головна</a></li>
+                <li><a href="theory.html">Теорія</a></li>
+                <li><a href="tasks.html">Завдання</a></li>
+                <li><a href="quizzes.html" class="active">Тести</a></li>
+                <li><a href="videos.html">Відео</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Головний контент -->
+    <div class="container">
+        <section class="hero">
+            <h1>Тести для самоперевірки</h1>
+            <p>Перевірте свої знання та підготуйтеся до НМТ</p>
+        </section>
+        
+        <!-- Тест 1 -->
+        <div class="quiz">
+            <div class="quiz-question">1. Який дискримінант має рівняння x² - 6x + 9 = 0?</div>
+            <ul class="quiz-options">
+                <li class="quiz-option" data-correct="false">36</li>
+                <li class="quiz-option" data-correct="false">1</li>
+                <li class="quiz-option" data-correct="true">0</li>
+                <li class="quiz-option" data-correct="false">-12</li>
+            </ul>
+            <div class="quiz-feedback feedback-correct">
+                <strong>Правильно!</strong> D = (-6)² - 4·1·9 = 36 - 36 = 0
+            </div>
+            <div class="quiz-feedback feedback-incorrect">
+                <strong>Не правильно.</strong> Правильна відповідь: 0 (D = (-6)² - 4·1·9 = 36 - 36 = 0)
+            </div>
+        </div>
+        
+        <!-- Тест 2 -->
+        <div class="quiz">
+            <div class="quiz-question">2. Яка довжина гіпотенузи прямокутного трикутника з катетами 5 см і 12 см?</div>
+            <ul class="quiz-options">
+                <li class="quiz-option" data-correct="false">13.5 см</li>
+                <li class="quiz-option" data-correct="false">15 см</li>
+                <li class="quiz-option" data-correct="true">13 см</li>
+                <li class="quiz-option" data-correct="false">17 см</li>
+            </ul>
+            <div class="quiz-feedback feedback-correct">
+                <strong>Правильно!</strong> c = √(5² + 12²) = √(25 + 144) = √169 = 13 см
+            </div>
+            <div class="quiz-feedback feedback-incorrect">
+                <strong>Не правильно.</strong> Правильна відповідь: 13 см (c = √(5² + 12²) = √169 = 13 см)
+            </div>
+        </div>
+        
+        <!-- Тест 3 -->
+        <div class="quiz">
+            <div class="quiz-question">3. Якщо 2x + 5 = 15, то x дорівнює:</div>
+            <ul class="quiz-options">
+                <li class="quiz-option" data-correct="false">10</li>
+                <li class="quiz-option" data-correct="true">5</li>
+                <li class="quiz-option" data-correct="false">7.5</li>
+                <li class="quiz-option" data-correct="false">20</li>
+            </ul>
+            <div class="quiz-feedback feedback-correct">
+                <strong>Правильно!</strong> 2x = 15 - 5 ⇒ 2x = 10 ⇒ x = 5
+            </div>
+            <div class="quiz-feedback feedback-incorrect">
+                <strong>Не правильно.</strong> Правильна відповідь: 5 (2x = 15 - 5 ⇒ x = 10/2 = 5)
+            </div>
+        </div>
+        
+        <button class="quiz-submit" onclick="checkQuiz()">Перевірити відповіді</button>
+        <div class="quiz-result"></div>
+    </div>
+    
+    <!-- Футер -->
+    <footer>
+        <ul class="footer-links">
+            <li><a href="index.html">Головна</a></li>
+            <li><a href="theory.html">Теорія</a></li>
+            <li><a href="tasks.html">Завдання</a></li>
+            <li><a href="quizzes.html">Тести</a></li>
+            <li><a href="videos.html">Відео</a></li>
+        </ul>
+        
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-telegram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fas fa-envelope"></i></a>
+        </div>
+        
+        <p>&copy; 2023 Підготовка до НМТ. Усі права захищені.</p>
+    </footer>
+    
+    <script>
+        function selectOption(option) {
+            const options = option.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            option.classList.add('selected');
+        }
+        
+        function checkQuiz() {
+            let correctAnswers = 0;
+            const quizzes = document.querySelectorAll('.quiz');
+            
+            quizzes.forEach(quiz => {
+                const selectedOption = quiz.querySelector('.quiz-option.selected');
+                const correctOption = quiz.querySelector('.quiz-option[data-correct="true"]');
+                const feedbackCorrect = quiz.querySelector('.feedback-correct');
+                const feedbackIncorrect = quiz.querySelector('.feedback-incorrect');
+                
+                if (selectedOption) {
+                    if (selectedOption === correctOption) {
+                        selectedOption.classList.add('correct');
+                        feedbackCorrect.style.display = 'block';
+                        feedbackIncorrect.style.display = 'none';
+                        correctAnswers++;
+                    } else {
+                        selectedOption.classList.add('incorrect');
+                        correctOption.classList.add('correct');
+                        feedbackCorrect.style.display = 'none';
+                        feedbackIncorrect.style.display = 'block';
+                    }
+                }
+            });
+            
+            const resultElement = document.querySelector('.quiz-result');
+            resultElement.style.display = 'block';
+            resultElement.textContent = `Результат: ${correctAnswers} з ${quizzes.length} правильно`;
+            
+            if (correctAnswers === quizzes.length) {
+                resultElement.style.backgroundColor = '#e8f5e9';
+                resultElement.style.color = 'var(--success)';
+                resultElement.innerHTML = `
+                    <p><i class="fas fa-check-circle" style="font-size: 2rem; margin-bottom: 1rem;"></i></p>
+                    <p>Вітаємо! Ви відповіли правильно на всі запитання!</p>
+                    <p>Результат: ${correctAnswers} з ${quizzes.length}</p>
+                `;
+            } else {
+                resultElement.style.backgroundColor = '#ffebee';
+                resultElement.style.color = 'var(--accent)';
+                resultElement.innerHTML = `
+                    <p><i class="fas fa-exclamation-circle" style="font-size: 2rem; margin-bottom: 1rem;"></i></p>
+                    <p>Результат: ${correctAnswers} з ${quizzes.length}</p>
+                    <p>Спробуйте ще раз!</p>
+                `;
+            }
+        }
+        
+        // Додаємо обробники подій для варіантів відповідей
+        document.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', function() {
+                selectOption(this);
+            });
+        });
+    </script>
+</body>
+</html>
